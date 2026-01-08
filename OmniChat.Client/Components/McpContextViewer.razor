@@ -17,14 +17,17 @@
             }
             </tbody>
         </MudSimpleTable>
-        <MudChip Color="Color.Info">
+
+        <!-- CORREÇÃO: Adicionado T="string" -->
+        <MudChip T="string" Color="Color.Info">
             Token Window: @TokenUsage / @TokenLimit
         </MudChip>
+
     </MudExpansionPanel>
 </MudExpansionPanels>
 
 @code {
-    [Parameter] public Dictionary<string, string> ContextData { get; set; }
+    [Parameter] public Dictionary<string, string> ContextData { get; set; } = new();
     [Parameter] public int TokenUsage { get; set; }
     [Parameter] public int TokenLimit { get; set; }
 }

@@ -19,7 +19,8 @@
                         <MudText Typo="Typo.body2">Conexão via QR Code ou API Oficial</MudText>
                     </CardHeaderContent>
                     <CardHeaderActions>
-                        <MudChip Color="@(_whatsappStatus == "Connected" ? Color.Success : Color.Error)">
+                        <!-- CORREÇÃO 1: Adicionado T="string" -->
+                        <MudChip T="string" Color="@(_whatsappStatus == "Connected" ? Color.Success : Color.Error)">
                             @_whatsappStatus
                         </MudChip>
                     </CardHeaderActions>
@@ -70,16 +71,25 @@
     private string _whatsappStatus = "Disconnected";
     private string? _qrCodeBase64;
     private string _telegramToken;
+    private bool _loading; // CORREÇÃO 2: Variável declarada para evitar erro no GenerateQrCode
 
     private async Task GenerateQrCode()
     {
         // Simulação de chamada à API que retorna a imagem do QR
         _loading = true;
-        // var result = await Http.PostAsync("api/channels/whatsapp/connect");
-        // _qrCodeBase64 = result.QrCode;
-        _qrCodeBase64 = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII="; // Placeholder
+
+        // Simulação de delay de rede
+        await Task.Delay(1000);
+
+        _qrCodeBase64 = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII="; // Placeholder pixel
         _loading = false;
-        
-        // Iniciar polling para verificar status de conexão
+
+        // Iniciar polling para verificar status de conexão...
+    }
+
+    private void SaveTelegramToken()
+    {
+        // TODO: Implementar salvamento do token via API
+        // Ex: await Http.PostAsJsonAsync("api/channels/telegram", new { Token = _telegramToken });
     }
 }

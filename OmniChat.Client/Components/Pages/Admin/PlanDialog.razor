@@ -1,0 +1,88 @@
+﻿@using MudBlazor
+@using OmniChat.Domain.Entities
+@inject HttpClient Http
+@inject ISnackbar Snackbar
+
+<MudDialog>
+    <DialogContent>
+        <MudForm>
+            <MudGrid>
+                <MudItem xs="12">
+                    <MudTextField @bind-Value="Plan.Name" Label="Nome do Plano" Required="true" Variant="Variant.Outlined" />
+                </MudItem>
+                <MudItem xs="6">
+                    <MudNumericField @bind-Value="Plan.Price" Label="Preço (R$)" Format="F2" Variant="Variant.Outlined" />
+                </MudItem>
+                <MudItem xs="6">
+                    <MudNumericField @bind-Value="Plan.MaxUsers" Label="Max Usuários (-1 = Ilimitado)" Variant="Variant.Outlined" />
+                </MudItem>
+                
+                <MudItem xs="12">
+                    <MudText Typo="Typo.subtitle1" Class="mt-3">Funcionalidades (Features)</MudText>
+                    <MudDivider Class="mb-2"/>
+                </MudItem>
+
+                <MudItem xs="6">
+                    <MudSwitch @bind-Value="Plan.Features.HasAiChatbot" Label="IA Chatbot" Color="Color.Success" />
+                </MudItem>
+                <MudItem xs="6">
+                    <MudSwitch @bind-Value="Plan.Features.AllowGpt4" Label="Permitir GPT-4" Color="Color.Secondary" />
+                </MudItem>
+                <MudItem xs="6">
+                    <MudSwitch @bind-Value="Plan.Features.HasFlowChatbot" Label="Fluxos de Conversa" Color="Color.Primary" />
+                </MudItem>
+                <MudItem xs="6">
+                    <MudSwitch @bind-Value="Plan.Features.HasInternalChat" Label="Chat Interno" Color="Color.Primary" />
+                </MudItem>
+                <MudItem xs="6">
+                    <MudSwitch @bind-Value="Plan.Features.CanSendCampaigns" Label="Campanhas em Massa" Color="Color.Warning" />
+                </MudItem>
+                <MudItem xs="6">
+                    <MudSwitch @bind-Value="Plan.Features.HasApiAccess" Label="Acesso via API" Color="Color.Error" />
+                </MudItem>
+            </MudGrid>
+        </MudForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancelar</MudButton>
+        <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="Submit">Salvar</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter] 
+    MudDialog MudDialog { get; set; } = default!;
+
+    [Parameter] 
+    public Plan Plan { get; set; } = new();
+
+    protected override void OnInitialized()
+    {
+        Plan.Features ??= new PlanFeatures();
+        
+        if (Plan.Id == Guid.Empty)
+        {
+            Plan.Id = Guid.NewGuid();
+        }
+    }
+
+    private void Cancel()
+    {
+        MudDialog.CloseAsync();
+    }
+
+    private async Task Submit()
+    {
+        var response = await Http.PostAsJsonAsync("api/admin/plans", Plan);
+
+        if (response.IsSuccessStatusCode)
+        {
+            Snackbar.Add("Plano salvo com sucesso!", Severity.Success);
+            MudDialog.CloseAsync(DialogResult.Ok(true));
+        }
+        else
+        {
+            Snackbar.Add("Erro ao salvar plano.", Severity.Error);
+        }
+    }
+}

@@ -1,7 +1,8 @@
 ﻿using System.Net.Http.Json;
 using Microsoft.Extensions.Configuration;
 using OmniChat.Domain.Interfaces;
-using OmniChat.Domain.MCP;
+
+namespace OmniChat.Infrastructure.AI;
 
 public class OpenAIService : IAIService
 {
@@ -17,37 +18,22 @@ public class OpenAIService : IAIService
         _httpClient.DefaultRequestHeaders.Authorization = 
             new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _apiKey);
     }
-    
-    public async Task<string> GetResponseAsync(List<McpMessage> history, AiConfig config)
+
+    // Implementação da Interface V2
+    public async Task<string> GenerateResponseAsync(List<(string Role, string Content)> history)
     {
-        var messages = new List<object>();
-
-        // 1. Injeta a Persona do Cliente como System Message
-        messages.Add(new { role = "system", content = config.BasePersona });
-
-        // 2. Adiciona o histórico do MCP
-        messages.AddRange(history.Select(h => new { role = h.Role.ToString().ToLower(), content = h.Content }));
-
-        var payload = new
+        var messages = new List<object>
         {
-            model = "gpt-4-turbo",
-            messages = messages,
-            temperature = config.Temperature
+            new { role = "system", content = "Você é um assistente útil e profissional." }
         };
 
-        // ... envio HTTP ...
-    }
+        // Converte o histórico de tuplas para o formato da OpenAI
+        messages.AddRange(history.Select(h => new { role = h.Role.ToLower(), content = h.Content }));
 
-    public async Task<string> GetResponseAsync(string userMessage, string contextId)
-    {
         var payload = new
         {
-            model = "gpt-4-turbo",
-            messages = new[] 
-            {
-                new { role = "system", content = "Você é um assistente útil." },
-                new { role = "user", content = userMessage }
-            }
+            model = "gpt-4-turbo", // ou gpt-3.5-turbo dependendo da config
+            messages = messages
         };
 
         var response = await _httpClient.PostAsJsonAsync("https://api.openai.com/v1/chat/completions", payload);
@@ -55,5 +41,17 @@ public class OpenAIService : IAIService
         
         var result = await response.Content.ReadFromJsonAsync<dynamic>();
         return result.choices[0].message.content;
+    }
+
+    public async Task<string> GetResponseAsync(string userMessage, string contextId)
+    {
+        // Cria um histórico temporário contendo apenas a mensagem atual
+        var simpleHistory = new List<(string Role, string Content)>
+        {
+            ("User", userMessage)
+        };
+
+        // Reutiliza a lógica robusta do GenerateResponseAsync
+        return await GenerateResponseAsync(simpleHistory);
     }
 }

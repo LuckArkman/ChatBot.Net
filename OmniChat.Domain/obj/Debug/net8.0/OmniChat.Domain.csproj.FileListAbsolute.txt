@@ -1,0 +1,13 @@
+D:\ChatBot.Net\OmniChat.Domain\bin\Debug\net8.0\OmniChat.Domain.deps.json
+D:\ChatBot.Net\OmniChat.Domain\bin\Debug\net8.0\OmniChat.Domain.dll
+D:\ChatBot.Net\OmniChat.Domain\bin\Debug\net8.0\OmniChat.Domain.pdb
+D:\ChatBot.Net\OmniChat.Domain\obj\Debug\net8.0\OmniChat.Domain.csproj.AssemblyReference.cache
+D:\ChatBot.Net\OmniChat.Domain\obj\Debug\net8.0\OmniChat.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\ChatBot.Net\OmniChat.Domain\obj\Debug\net8.0\OmniChat.Domain.AssemblyInfoInputs.cache
+D:\ChatBot.Net\OmniChat.Domain\obj\Debug\net8.0\OmniChat.Domain.AssemblyInfo.cs
+D:\ChatBot.Net\OmniChat.Domain\obj\Debug\net8.0\OmniChat.Domain.csproj.CoreCompileInputs.cache
+D:\ChatBot.Net\OmniChat.Domain\obj\Debug\net8.0\OmniChat.Domain.sourcelink.json
+D:\ChatBot.Net\OmniChat.Domain\obj\Debug\net8.0\OmniChat.Domain.dll
+D:\ChatBot.Net\OmniChat.Domain\obj\Debug\net8.0\refint\OmniChat.Domain.dll
+D:\ChatBot.Net\OmniChat.Domain\obj\Debug\net8.0\OmniChat.Domain.pdb
+D:\ChatBot.Net\OmniChat.Domain\obj\Debug\net8.0\ref\OmniChat.Domain.dll

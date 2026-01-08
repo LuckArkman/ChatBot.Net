@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "dgSpecHash": "ScXdpPbOja0=",
-  "success": false,
+  "dgSpecHash": "7uVeI5ckDGE=",
+  "success": true,
   "projectFilePath": "D:\\ChatBot.Net\\OmniChat.Application\\OmniChat.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\MPLopes\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
@@ -12,7 +12,7 @@
     "C:\\Users\\MPLopes\\.nuget\\packages\\microsoft.aspnetcore.antiforgery\\2.1.0\\microsoft.aspnetcore.antiforgery.2.1.0.nupkg.sha512",
     "C:\\Users\\MPLopes\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.3.0\\microsoft.aspnetcore.authentication.abstractions.2.3.0.nupkg.sha512",
     "C:\\Users\\MPLopes\\.nuget\\packages\\microsoft.aspnetcore.authentication.core\\2.1.0\\microsoft.aspnetcore.authentication.core.2.1.0.nupkg.sha512",
-    "C:\\Users\\MPLopes\\.nuget\\packages\\microsoft.aspnetcore.authorization\\8.0.0\\microsoft.aspnetcore.authorization.8.0.0.nupkg.sha512",
+    "C:\\Users\\MPLopes\\.nuget\\packages\\microsoft.aspnetcore.authorization\\8.0.12\\microsoft.aspnetcore.authorization.8.0.12.nupkg.sha512",
     "C:\\Users\\MPLopes\\.nuget\\packages\\microsoft.aspnetcore.authorization.policy\\2.3.0\\microsoft.aspnetcore.authorization.policy.2.3.0.nupkg.sha512",
     "C:\\Users\\MPLopes\\.nuget\\packages\\microsoft.aspnetcore.components\\8.0.12\\microsoft.aspnetcore.components.8.0.12.nupkg.sha512",
     "C:\\Users\\MPLopes\\.nuget\\packages\\microsoft.aspnetcore.components.analyzers\\8.0.12\\microsoft.aspnetcore.components.analyzers.8.0.12.nupkg.sha512",
@@ -37,7 +37,7 @@
     "C:\\Users\\MPLopes\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.3.0\\microsoft.aspnetcore.http.features.2.3.0.nupkg.sha512",
     "C:\\Users\\MPLopes\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\2.1.0\\microsoft.aspnetcore.jsonpatch.2.1.0.nupkg.sha512",
     "C:\\Users\\MPLopes\\.nuget\\packages\\microsoft.aspnetcore.localization\\2.1.0\\microsoft.aspnetcore.localization.2.1.0.nupkg.sha512",
-    "C:\\Users\\MPLopes\\.nuget\\packages\\microsoft.aspnetcore.metadata\\8.0.0\\microsoft.aspnetcore.metadata.8.0.0.nupkg.sha512",
+    "C:\\Users\\MPLopes\\.nuget\\packages\\microsoft.aspnetcore.metadata\\8.0.12\\microsoft.aspnetcore.metadata.8.0.12.nupkg.sha512",
     "C:\\Users\\MPLopes\\.nuget\\packages\\microsoft.aspnetcore.mvc\\2.1.0\\microsoft.aspnetcore.mvc.2.1.0.nupkg.sha512",
     "C:\\Users\\MPLopes\\.nuget\\packages\\microsoft.aspnetcore.mvc.abstractions\\2.1.0\\microsoft.aspnetcore.mvc.abstractions.2.1.0.nupkg.sha512",
     "C:\\Users\\MPLopes\\.nuget\\packages\\microsoft.aspnetcore.mvc.apiexplorer\\2.1.0\\microsoft.aspnetcore.mvc.apiexplorer.2.1.0.nupkg.sha512",
@@ -215,17 +215,5 @@
     "C:\\Users\\MPLopes\\.nuget\\packages\\system.xml.xpath.xdocument\\4.3.0\\system.xml.xpath.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\MPLopes\\.nuget\\packages\\zstdsharp.port\\0.7.3\\zstdsharp.port.0.7.3.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1605",
-      "level": "Error",
-      "message": "Warning As Error: Detected package downgrade: Microsoft.AspNetCore.Authorization from 8.0.12 to 8.0.0. Reference the package directly from the project to select a different version. \r\n OmniChat.Application -> Blazored.LocalStorage 4.3.0 -> Microsoft.AspNetCore.Components.Web 8.0.12 -> Microsoft.AspNetCore.Components 8.0.12 -> Microsoft.AspNetCore.Authorization (>= 8.0.12) \r\n OmniChat.Application -> Microsoft.AspNetCore.Authorization (>= 8.0.0)",
-      "projectPath": "D:\\ChatBot.Net\\OmniChat.Application\\OmniChat.Application.csproj",
-      "filePath": "D:\\ChatBot.Net\\OmniChat.Application\\OmniChat.Application.csproj",
-      "libraryId": "Microsoft.AspNetCore.Authorization",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    }
-  ]
+  "logs": []
 }

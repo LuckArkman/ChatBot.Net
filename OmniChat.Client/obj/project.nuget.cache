@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "FwwRug6EG/E=",
+  "dgSpecHash": "PNgcb7YUTWk=",
   "success": true,
   "projectFilePath": "D:\\ChatBot.Net\\OmniChat.Client\\OmniChat.Client.csproj",
   "expectedPackageFiles": [
@@ -220,10 +220,8 @@
     {
       "code": "NU1902",
       "level": "Warning",
-      "message": "Package 'System.IdentityModel.Tokens.Jwt' 6.24.0 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-59j7-ghrg-fj52",
-      "projectPath": "D:\\ChatBot.Net\\OmniChat.Client\\OmniChat.Client.csproj",
       "warningLevel": 1,
-      "filePath": "D:\\ChatBot.Net\\OmniChat.Client\\OmniChat.Client.csproj",
+      "message": "Package 'System.IdentityModel.Tokens.Jwt' 6.24.0 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-59j7-ghrg-fj52",
       "libraryId": "System.IdentityModel.Tokens.Jwt",
       "targetGraphs": [
         "net8.0"

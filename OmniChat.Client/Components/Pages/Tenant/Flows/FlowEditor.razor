@@ -1,7 +1,10 @@
 ﻿@page "/flows/edit/{FlowId:guid?}"
 @using Microsoft.AspNetCore.Authorization
 @using MudBlazor
+@using OmniChat.Shared.DTOs
 @attribute [Authorize(Roles = "OrganizationAdmin")]
+@inject HttpClient Http
+@inject ISnackbar Snackbar
 
 <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4">
     <MudGrid>
@@ -13,7 +16,7 @@
                 {
                     <MudTextField @bind-Value="_selectedNode.Content" Label="Mensagem do Bot" Variant="Variant.Outlined" Lines="3" Class="mb-4" />
                     
-                    <MudSelect @bind-Value="_selectedNode.Type" Label="Tipo de Ação">
+                    <MudSelect @bind-Value="_selectedNode.Type" Label="Tipo de Ação" T="string">
                         <MudSelectItem Value="@("Menu")">Menu de Opções</MudSelectItem>
                         <MudSelectItem Value="@("Input")">Aguardar Texto</MudSelectItem>
                         <MudSelectItem Value="@("Handover")">Transferir para Humano</MudSelectItem>
@@ -36,23 +39,24 @@
             </MudPaper>
         </MudItem>
 
-        <!-- Visualização da Árvore (Canvas Simplificado) -->
+        <!-- Visualização da Árvore -->
         <MudItem xs="8">
             <MudPaper Class="pa-4 gray-bg" Height="80vh" Style="overflow: auto;">
-                <MudTreeView Items="_flowNodes" MultiSelection="false">
+                <!-- CORREÇÃO: Items agora é uma lista de TreeItemData -->
+                <MudTreeView T="FlowNodeDto" Items="_treeItems" MultiSelection="false">
                     <ItemTemplate>
-                        <MudTreeViewItem Value="@context" 
-                                         Text="@context.Content" 
-                                         EndText="@context.Type"
+                        <!-- O context aqui é TreeItemData<FlowNodeDto> -->
+                        <MudTreeViewItem Value="@context.Value"
+                                         Text="@context.Value.Content"
                                          Icon="@Icons.Material.Filled.Message"
-                                         OnClick="@(() => SelectNode(context))" />
+                                         OnClick="@(() => SelectNode(context.Value))" />
                     </ItemTemplate>
                 </MudTreeView>
             </MudPaper>
         </MudItem>
     </MudGrid>
     
-    <MudFab Color="Color.Primary" Icon="@Icons.Material.Filled.Save" Class="fixed-fab" OnClick="SaveFlow" />
+    <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Save" Class="fixed-fab" OnClick="SaveFlow" />
 </MudContainer>
 
 <style>
@@ -63,16 +67,28 @@
 @code {
     [Parameter] public Guid? FlowId { get; set; }
     
-    // Representação visual local do grafo
-    private HashSet<FlowNodeDto> _flowNodes = new(); 
+    // --- CORREÇÃO 1: Mudança do tipo da coleção para TreeItemData ---
+    private HashSet<TreeItemData<FlowNodeDto>> _treeItems = new(); 
+    
     private FlowNodeDto? _selectedNode;
 
     protected override void OnInitialized()
     {
         // Mock de dados iniciais
-        var root = new FlowNodeDto { Id = "start", Content = "Olá! Bem vindo.", Type = "Menu" };
-        root.Options.Add(new FlowOptionDto { Label = "Financeiro", TargetNodeId = "fin" });
-        _flowNodes.Add(root);
+        var rootDto = new FlowNodeDto { Id = "start", Content = "Olá! Bem vindo.", Type = "Menu" };
+        rootDto.Options.Add(new FlowOptionDto { Label = "Financeiro", TargetNodeId = "fin" });
+
+        // --- CORREÇÃO 2: Encapsulando o DTO no TreeItemData ---
+        var rootItem = new TreeItemData<FlowNodeDto>
+        {
+            Value = rootDto,
+            Text = rootDto.Content,
+            Icon = Icons.Material.Filled.Message,
+            // Se houver filhos hierárquicos reais, adicione-os em rootItem.Children
+            Expandable = true 
+        };
+
+        _treeItems.Add(rootItem);
     }
 
     private void SelectNode(FlowNodeDto node) => _selectedNode = node;
@@ -82,8 +98,11 @@
 
     private async Task SaveFlow()
     {
-        // Serializa e envia para API (MongoDB)
-        // await Http.PostAsJsonAsync("api/flows", _flowNodes);
-        Snackbar.Add("Fluxo salvo com sucesso!", Severity.Success);
+        // Ao salvar, precisamos extrair os DTOs de dentro do TreeItemData
+        // var rawData = _treeItems.Select(x => x.Value).ToList();
+        
+        // Simulação de salvamento
+        await Task.Delay(100); 
+        Snackbar.Add("Fluxo salvo com sucesso!", severity: Severity.Success);
     }
 }

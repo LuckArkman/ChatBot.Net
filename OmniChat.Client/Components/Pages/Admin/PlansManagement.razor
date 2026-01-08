@@ -4,10 +4,11 @@
 @using OmniChat.Domain.Entities
 @attribute [Authorize(Roles = "SuperAdmin")]
 @inject HttpClient Http
+@inject IDialogService DialogService
 
 <MudContainer MaxWidth="MaxWidth.Large" Class="mt-4">
     <MudText Typo="Typo.h4" GutterBottom="true">Gestão de Planos e Serviços</MudText>
-    
+
     <MudTable Items="@_plans" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading">
         <HeaderContent>
             <MudTh>Nome</MudTh>
@@ -23,16 +24,18 @@
                 @(context.MaxUsers == -1 ? "Ilimitado" : context.MaxUsers)
             </MudTd>
             <MudTd DataLabel="IA">
-                <MudChip Color="@(context.Features.HasAiChatbot ? Color.Success : Color.Error)">
+                <MudChip T="string" Color="@(context.Features.HasAiChatbot ? Color.Success : Color.Error)">
                     @(context.Features.HasAiChatbot ? "Sim" : "Não")
                 </MudChip>
             </MudTd>
             <MudTd>
+                <!-- Agora o método EditPlan existe e funcionará -->
                 <MudIconButton Icon="@Icons.Material.Filled.Edit" OnClick="@(() => EditPlan(context))" />
             </MudTd>
         </RowTemplate>
     </MudTable>
-    
+
+    <!-- Agora o método CreatePlan existe e funcionará -->
     <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" Class="mt-4" OnClick="CreatePlan" />
 </MudContainer>
 
@@ -42,9 +45,52 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _plans = await Http.GetFromJsonAsync<List<Plan>>("api/admin/plans");
+        await LoadPlans();
+    }
+
+    private async Task LoadPlans()
+    {
+        _loading = true;
+        try
+        {
+            _plans = await Http.GetFromJsonAsync<List<Plan>>("api/admin/plans");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro ao carregar planos: {ex.Message}");
+        }
         _loading = false;
     }
-    
-    // Lógica de Create/Edit omitida para brevidade
+
+    // --- 2. IMPLEMENTAÇÃO DOS MÉTODOS QUE FALTAVAM ---
+
+    private async Task CreatePlan()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Medium, FullWidth = true };
+
+        // Nota: Você precisará criar o componente 'PlanDialog.razor' para isso funcionar completamente.
+        // Se ainda não criou, comente as linhas do DialogService e coloque apenas um Console.WriteLine
+        var dialog = DialogService.Show<PlanDialog>("Criar Novo Plano", options);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            await LoadPlans(); // Recarrega a tabela após salvar
+        }
+    }
+
+    private async Task EditPlan(Plan plan)
+    {
+        var parameters = new DialogParameters { ["Plan"] = plan }; // Passa o plano para o modal
+        var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Medium, FullWidth = true };
+
+        var dialog = DialogService.Show<PlanDialog>("Editar Plano", parameters, options);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            await LoadPlans(); // Recarrega a tabela após editar
+        }
+    }
+
 }

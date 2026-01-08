@@ -2,16 +2,19 @@
 @using Microsoft.AspNetCore.SignalR.Client
 @using MudBlazor
 @using OmniChat.Domain.Interfaces
+@using OmniChat.Shared.DTOs
 @inject NavigationManager Navigation
 @inject IEncryptionService Crypto
 
 <MudGrid>
     <!-- Lista de Conversas -->
     <MudItem xs="4">
-        <MudList Clickable="true">
+        <!-- CORREÇÃO 1: Adicionado T="ChatSessionDto" -->
+        <MudList T="ChatSessionDto" Clickable="true">
             @foreach(var chat in _activeChats)
             {
-                <MudListItem OnClick="() => SelectChat(chat.UserId)">
+                <!-- CORREÇÃO 2: Adicionado T="ChatSessionDto" -->
+                <MudListItem T="ChatSessionDto" OnClick="() => SelectChat(chat.UserId)">
                     <MudText>@chat.UserPhone</MudText>
                     <MudText Typo="Typo.caption">@chat.LastMessagePreview</MudText>
                 </MudListItem>
@@ -34,7 +37,7 @@
                         </div>
                     }
                 </div>
-                
+
                 <!-- Input de Resposta Manual -->
                 <div class="pa-4 d-flex gap-2">
                     <MudTextField @bind-Value="_newMessage" Placeholder="Digite sua resposta..." Variant="Variant.Outlined" />
@@ -54,9 +57,15 @@
 
     protected override async Task OnInitializedAsync()
     {
+        // Mock de dados para visualizar a lista (opcional)
+        if (!_activeChats.Any())
+        {
+            _activeChats.Add(new ChatSessionDto { UserId = Guid.NewGuid(), UserPhone = "+5511999999999", LastMessagePreview = "Olá, preciso de ajuda" });
+        }
+
         hubConnection = new HubConnectionBuilder()
             .WithUrl(Navigation.ToAbsoluteUri("/chathub"), options => {
-                options.AccessTokenProvider = () => Task.FromResult("JWT_TOKEN_HERE");
+            options.AccessTokenProvider = () => Task.FromResult("JWT_TOKEN_HERE");
             })
             .WithAutomaticReconnect()
             .Build();
@@ -74,16 +83,27 @@
         await hubConnection.StartAsync();
     }
 
+    // Método que faltava para selecionar o chat
+    private void SelectChat(Guid userId)
+    {
+        _selectedChatId = userId;
+        _messages.Clear();
+        // Aqui você chamaria a API para carregar o histórico real do chat
+        _messages.Add(new MessageDto { Content = "Histórico carregado...", IsBot = true });
+    }
+
     private async Task SendMessage()
     {
+        if (string.IsNullOrWhiteSpace(_newMessage)) return;
+
         // 1. Criptografa no cliente
         var encrypted = Crypto.Encrypt(_newMessage);
-        
+
         // 2. Envia para o Hub
         await hubConnection.SendAsync("SendMessageToCustomer", _selectedChatId.ToString(), encrypted);
-        
+
         // 3. Atualiza UI local
-        _messages.Add(new MessageDto { Content = _newMessage, IsBot = true });
+        _messages.Add(new MessageDto { Content = _newMessage, IsBot = true }); // True pois o atendente (tenant) é "bot" na visão da UI ou "Self"
         _newMessage = "";
     }
 }

@@ -1846,6 +1846,7 @@
           }
         },
         "build": {
+          "build/MudBlazor.targets": {},
           "buildTransitive/MudBlazor.props": {}
         },
         "buildMultiTargeting": {
@@ -10238,6 +10239,7 @@
       "FluentValidation >= 8.0.0",
       "Microsoft.AspNetCore.Components.WebAssembly.Authentication >= 8.0.0",
       "Microsoft.AspNetCore.SignalR.Client >= 8.0.0",
+      "MudBlazor >= 8.0.0",
       "OmniChat.Domain >= 1.0.0",
       "OmniChat.Shared >= 1.0.0",
       "System.IdentityModel.Tokens.Jwt >= 6.24.0"
@@ -10314,6 +10316,10 @@
             "version": "[8.0.0, )"
           },
           "Microsoft.AspNetCore.SignalR.Client": {
+            "target": "Package",
+            "version": "[8.0.0, )"
+          },
+          "MudBlazor": {
             "target": "Package",
             "version": "[8.0.0, )"
           },

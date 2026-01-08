@@ -2021,7 +2021,7 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.3.0",
           "FluentValidation": "8.0.0",
-          "Microsoft.AspNetCore.Authorization": "8.0.0",
+          "Microsoft.AspNetCore.Authorization": "8.0.12",
           "Microsoft.AspNetCore.Components.WebAssembly.Authentication": "8.0.0",
           "Microsoft.AspNetCore.SignalR": "1.2.0",
           "Microsoft.EntityFrameworkCore": "8.0.0",

@@ -33,7 +33,17 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 app.MapHub<ChatHub>("/chathub");
-app.MapControllers(); // Não esqueça de mapear os controllers
+
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+// -----------------------
+
+app.MapHub<ChatHub>("/chathub");
+app.MapControllers();
 
 // --- Seed Inicial ---
 using (var scope = app.Services.CreateScope())

@@ -12,14 +12,15 @@ public class MongoDbContext
 
     public IMongoClient Client { get; }
 
+    public IMongoDatabase Database => _database; 
+    // ---------------------------------
+
     public MongoDbContext(IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("MongoConnection");
         var databaseName = configuration["MongoSettings:DatabaseName"];
         
         var client = new MongoClient(connectionString);
-        
-        // --- 2. ATRIBUA O CLIENT À PROPRIEDADE PÚBLICA ---
         Client = client;
         
         _database = client.GetDatabase(databaseName);

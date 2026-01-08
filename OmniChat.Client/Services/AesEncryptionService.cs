@@ -34,7 +34,20 @@ public class AesEncryptionService : IEncryptionService
 
     public string Decrypt(string cipherText)
     {
+        using var aes = Aes.Create();
+        aes.Key = _key;
+        aes.IV = _iv;
+
+        var decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
         
+        // Converte Base64 de volta para bytes
+        var buffer = Convert.FromBase64String(cipherText);
+
+        using var ms = new MemoryStream(buffer);
+        using var cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read);
+        using var sr = new StreamReader(cs);
+        
+        return sr.ReadToEnd();
     }
 
     // Decrypt segue a lógica inversa...

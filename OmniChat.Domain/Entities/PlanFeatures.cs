@@ -5,6 +5,7 @@ public class PlanFeatures
     public bool HasInternalChat { get; set; } = true;
     public bool HasFlowChatbot { get; set; } = true;
     public bool HasAiChatbot { get; set; } = true; // "Chatbot com IA (grátis!)"
+    public bool AllowGpt4 { get; set; } 
     
     // O "**" na imagem em Campanhas sugere restrições ou disponibilidade
     public bool CanSendCampaigns { get; set; } 

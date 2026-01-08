@@ -1,0 +1,13 @@
+D:\ChatBot.Net\OmniChat.Shared\bin\Debug\net8.0\OmniChat.Shared.deps.json
+D:\ChatBot.Net\OmniChat.Shared\bin\Debug\net8.0\OmniChat.Shared.dll
+D:\ChatBot.Net\OmniChat.Shared\bin\Debug\net8.0\OmniChat.Shared.pdb
+D:\ChatBot.Net\OmniChat.Shared\obj\Debug\net8.0\OmniChat.Shared.csproj.AssemblyReference.cache
+D:\ChatBot.Net\OmniChat.Shared\obj\Debug\net8.0\OmniChat.Shared.GeneratedMSBuildEditorConfig.editorconfig
+D:\ChatBot.Net\OmniChat.Shared\obj\Debug\net8.0\OmniChat.Shared.AssemblyInfoInputs.cache
+D:\ChatBot.Net\OmniChat.Shared\obj\Debug\net8.0\OmniChat.Shared.AssemblyInfo.cs
+D:\ChatBot.Net\OmniChat.Shared\obj\Debug\net8.0\OmniChat.Shared.csproj.CoreCompileInputs.cache
+D:\ChatBot.Net\OmniChat.Shared\obj\Debug\net8.0\OmniChat.Shared.sourcelink.json
+D:\ChatBot.Net\OmniChat.Shared\obj\Debug\net8.0\OmniChat.Shared.dll
+D:\ChatBot.Net\OmniChat.Shared\obj\Debug\net8.0\refint\OmniChat.Shared.dll
+D:\ChatBot.Net\OmniChat.Shared\obj\Debug\net8.0\OmniChat.Shared.pdb
+D:\ChatBot.Net\OmniChat.Shared\obj\Debug\net8.0\ref\OmniChat.Shared.dll

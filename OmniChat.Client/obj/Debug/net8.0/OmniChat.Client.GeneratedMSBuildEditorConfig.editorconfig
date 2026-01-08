@@ -1,4 +1,7 @@
 is_global = true
+build_property.MudDebugAnalyzer = 
+build_property.MudAllowedAttributePattern = 
+build_property.MudAllowedAttributeList = 
 build_property.TargetFramework = net8.0
 build_property.TargetFrameworkIdentifier = .NETCoreApp
 build_property.TargetFrameworkVersion = v8.0
@@ -26,8 +29,24 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xBcHAucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/ChatBot.Net/OmniChat.Client/Components/Layout/AdminLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcQWRtaW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ChatBot.Net/OmniChat.Client/Components/Layout/LoginLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTG9naW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ChatBot.Net/OmniChat.Client/Components/Layout/TenantLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcVGVuYW50TGF5b3V0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/ChatBot.Net/OmniChat.Client/Components/McpContextViewer.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xNY3BDb250ZXh0Vmlld2VyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ChatBot.Net/OmniChat.Client/Components/Pages/Admin/PlanDialog.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblxQbGFuRGlhbG9nLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/ChatBot.Net/OmniChat.Client/Components/Pages/Admin/PlansManagement.razor]
@@ -72,6 +91,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/ChatBot.Net/OmniChat.Client/Components/Pages/Weather.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xXZWF0aGVyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ChatBot.Net/OmniChat.Client/Components/RedirectToLogin.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xSZWRpcmVjdFRvTG9naW4ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/ChatBot.Net/OmniChat.Client/Components/Routes.razor]
