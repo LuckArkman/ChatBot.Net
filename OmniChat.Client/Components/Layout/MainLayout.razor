@@ -3,28 +3,18 @@
 @inherits LayoutComponentBase
 @inject AuthenticationStateProvider AuthStateProvider
 
+@* Provedores globais do MudBlazor - Devem estar aqui *@
 <MudThemeProvider Theme="_currentTheme" />
 <MudDialogProvider />
 <MudSnackbarProvider />
+<MudPopoverProvider />
 
-<AuthorizeView Roles="SuperAdmin">
-    <Authorized>
-        <AdminLayout Body="@Body" />
-    </Authorized>
-</AuthorizeView>
-
-<AuthorizeView Roles="OrganizationAdmin, User">
-    <Authorized>
-        <TenantLayout Body="@Body" />
-    </Authorized>
-</AuthorizeView>
-
-<AuthorizeView>
-    <NotAuthorized>
-        <LoginLayout Body="@Body" />
-    </NotAuthorized>
-</AuthorizeView>
+<MudLayout>
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+</MudLayout>
 
 @code {
-    private MudTheme _currentTheme = new MudTheme(); // Configurar cores dark/light aqui
+    private MudTheme _currentTheme = new MudTheme();
 }

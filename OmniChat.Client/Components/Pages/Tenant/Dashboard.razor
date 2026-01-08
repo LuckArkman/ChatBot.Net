@@ -1,7 +1,8 @@
 ﻿@page "/dashboard"
 @using Microsoft.AspNetCore.Authorization
 @using MudBlazor
-@attribute [Authorize(Roles = "OrganizationAdmin")]
+@rendermode InteractiveServer
+@* @attribute [Authorize(Roles = "OrganizationAdmin")] *@
 
 <MudContainer MaxWidth="MaxWidth.Large" Class="mt-4">
     <MudGrid>

@@ -1,4 +1,5 @@
 using MongoDB.Bson;
+using OmniChat.Infrastructure.Security;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using OmniChat.Application.Hubs;
@@ -24,7 +25,8 @@ builder.Services.AddSingleton<MongoDbContext>();
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<PlanRepository>();
 builder.Services.AddScoped<PlanEnforcementService>();
-
+builder.Services.AddScoped<RegisterOrganizationUseCase>();
+builder.Services.AddScoped<AuthService>();
 builder.Services.AddSignalR();
 builder.Services.AddControllers(); 
 builder.Services.AddEndpointsApiExplorer();

@@ -117,3 +117,4 @@ D:\ChatBot.Net\OmniChat.API\obj\Debug\net8.0\refint\OmniChat.API.dll
 D:\ChatBot.Net\OmniChat.API\obj\Debug\net8.0\OmniChat.API.pdb
 D:\ChatBot.Net\OmniChat.API\obj\Debug\net8.0\OmniChat.API.genruntimeconfig.cache
 D:\ChatBot.Net\OmniChat.API\obj\Debug\net8.0\ref\OmniChat.API.dll
+D:\ChatBot.Net\OmniChat.API\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

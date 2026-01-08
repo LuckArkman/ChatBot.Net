@@ -5,7 +5,11 @@
 @using OmniChat.Client.Auth
 @using OmniChat.Client.Components.Layout
 @using OmniChat.Shared.DTOs
-@layout LoginLayout
+@layout MainLayout
+
+<!-- ADICIONE ESTA LINHA AQUI -->
+@rendermode InteractiveServer
+
 @inject AuthenticationStateProvider AuthState
 @inject ILocalStorageService LocalStorage
 @inject NavigationManager Nav
@@ -37,6 +41,9 @@
                     else { <text>Entrar</text> }
                 </MudButton>
             </MudCardActions>
+            <MudText Typo="Typo.body2" Align="Align.Center" Class="mt-4">
+                Não tem uma conta? <MudLink Href="/register">Cadastre-se</MudLink>
+            </MudText>
         </MudCard>
     </MudItem>
 </MudGrid>
@@ -57,7 +64,7 @@
 
         try 
         {
-            var response = await Http.PostAsJsonAsync("api/auth/login", _loginModel);
+            var response = await Http.PostAsJsonAsync("https://localhost:7192/api/auth/login", _loginModel);
             
             if (response.IsSuccessStatusCode)
             {

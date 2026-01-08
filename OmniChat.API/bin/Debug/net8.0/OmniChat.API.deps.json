@@ -840,6 +840,7 @@
         "dependencies": {
           "Blazored.LocalStorage": "4.3.0",
           "FluentValidation": "12.1.1",
+          "FluentValidation.AspNetCore": "11.3.1",
           "Microsoft.AspNetCore.Authorization": "8.0.12",
           "Microsoft.AspNetCore.Components.WebAssembly.Authentication": "8.0.0",
           "Microsoft.AspNetCore.SignalR": "1.2.0",

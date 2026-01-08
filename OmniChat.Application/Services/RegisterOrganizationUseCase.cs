@@ -1,7 +1,7 @@
 ﻿using MongoDB.Driver;
-using OmniChat.Domain.Entities; // Resolve 'User', 'Organization'
-using OmniChat.Domain.Enums;    // Resolve 'UserRole', 'SubscriptionStatus'
-using OmniChat.Infrastructure.Persistence; // Resolve 'MongoDbContext'
+using OmniChat.Domain.Entities;
+using OmniChat.Domain.Enums;
+using OmniChat.Infrastructure.Persistence;
 using OmniChat.Shared.DTOs;
 
 namespace OmniChat.Application.Services;
@@ -10,7 +10,6 @@ public class RegisterOrganizationUseCase
 {
     private readonly MongoDbContext _db;
 
-    // Construtor para injeção de dependência (Resolve o erro do '_db')
     public RegisterOrganizationUseCase(MongoDbContext db)
     {
         _db = db;
@@ -23,7 +22,7 @@ public class RegisterOrganizationUseCase
             .Find(p => p.Name == input.PlanName)
             .FirstOrDefaultAsync();
 
-        if (plan == null) throw new Exception("Plano não encontrado.");
+        if (plan == null) throw new Exception("Plano não encontrado. Certifique-se de ter rodado o Seed.");
 
         // 2. Criar Organização
         var org = new Organization(input.CompanyName);
@@ -34,30 +33,14 @@ public class RegisterOrganizationUseCase
         // 3. Criar Usuário Admin
         var adminUser = new User(input.AdminPhone);
         
-        // Preenche dados adicionais do DTO
         adminUser.Email = input.AdminEmail; 
-        // Nota: Em produção, use o AuthService.HashPassword(input.Password) aqui
-        adminUser.PasswordHash = input.Password; 
+        adminUser.PasswordHash = input.Password;
 
         adminUser.OrganizationId = org.Id; 
-        adminUser.Role = UserRole.OrganizationAdmin; // Admin da Empresa
-
-        // 4. Atualizar lista de membros da Org
+        adminUser.Role = UserRole.OrganizationAdmin;
         org.MemberIds.Add(adminUser.Id);
-
-        // 5. Persistência Transacional
-        using var session = await _db.Client.StartSessionAsync();
-        session.StartTransaction();
-        try 
-        {
-            await _db.Organizations.InsertOneAsync(session, org);
-            await _db.Users.InsertOneAsync(session, adminUser);
-            await session.CommitTransactionAsync();
-        }
-        catch 
-        {
-            await session.AbortTransactionAsync();
-            throw;
-        }
+        
+        await _db.Organizations.InsertOneAsync(org);
+        await _db.Users.InsertOneAsync(adminUser);
     }
 }

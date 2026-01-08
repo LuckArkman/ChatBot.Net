@@ -15,6 +15,7 @@ builder.Services.AddRazorComponents()
 builder.Services.AddMudServices();
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddAuthorizationCore();
+builder.Services.AddMudServices();
 
 // Configure HttpClient for API calls
 builder.Services.AddScoped(sp => new HttpClient 

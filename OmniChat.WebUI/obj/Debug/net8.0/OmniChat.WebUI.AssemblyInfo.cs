@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OmniChat.WebUI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e4b9375d9de13b022f188680a71b1dd4ef36d208")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d36ee77aee73e67203fecb30f6906f5bc9af7171")]
 [assembly: System.Reflection.AssemblyProductAttribute("OmniChat.WebUI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OmniChat.WebUI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
