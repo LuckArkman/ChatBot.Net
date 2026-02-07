@@ -1,4 +1,5 @@
-﻿using OmniChat.Domain.ValueObjects;
+﻿using OmniChat.Domain.Enums;
+using OmniChat.Domain.ValueObjects;
 
 namespace OmniChat.Domain.MCP;
 
@@ -33,5 +34,27 @@ public class McpContextSession
     public List<(string Role, string Content)> GetDecryptedHistory(string key)
     {
         return _history.Select(h => (h.Role.ToString(), h.Content.ToPlainText(key))).ToList();
+    }
+    
+    public bool IsInFlow { get; set; }
+    public string? CurrentFlowId { get; set; }
+    public string? CurrentNodeId { get; set; }
+    
+    public bool IsHandedOverToHuman { get; set; } // Se true, bot (IA e Flow) fica mudo
+    public Guid? AssignedHumanAgentId { get; set; }
+
+    public void EnterFlow(string flowId, string startNodeId)
+    {
+        IsInFlow = true;
+        CurrentFlowId = flowId;
+        CurrentNodeId = startNodeId;
+        IsHandedOverToHuman = false;
+    }
+
+    public void ExitFlow()
+    {
+        IsInFlow = false;
+        CurrentFlowId = null;
+        CurrentNodeId = null;
     }
 }

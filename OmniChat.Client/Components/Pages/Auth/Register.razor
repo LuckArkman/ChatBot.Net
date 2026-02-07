@@ -1,0 +1,160 @@
+﻿@page "/register"
+@using OmniChat.Client.Components.Layout
+@using OmniChat.Shared.DTOs
+@layout MainLayout
+@inject HttpClient Http
+@inject NavigationManager Nav
+@inject ISnackbar Snackbar
+
+<MudGrid Justify="Justify.Center" Class="mt-8">
+    <MudItem xs="12" sm="8" md="6" lg="5">
+        <MudCard Elevation="4" Class="pa-4">
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h4" Align="Align.Center" Color="Color.Primary" Class="mb-2">OmniChat</MudText>
+                    <MudText Typo="Typo.subtitle1" Align="Align.Center">Crie sua conta empresarial</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            
+            <!-- CORREÇÃO: O MudForm deve envolver o Content E as Actions para o Submit funcionar -->
+            <MudForm @ref="_form" @bind-IsValid="_success" OnValidSubmit="ExecuteRegister">
+                <MudCardContent>
+                    
+                    <MudText Typo="Typo.h6" Class="mt-4">Dados da Empresa</MudText>
+                    
+                    <MudTextField T="string" 
+                                  Label="Nome da Empresa" 
+                                  @bind-Value="_registerModel.CompanyName" 
+                                  Required="true" 
+                                  RequiredError="Nome da empresa é obrigatório."
+                                  Variant="Variant.Outlined" 
+                                  Class="mb-3"/>
+
+                    <MudSelect T="string" Label="Plano Desejado" @bind-Value="_registerModel.PlanName" Variant="Variant.Outlined" Required="true">
+                        <MudSelectItem Value="@("Free Tier")">Gratuito (Teste)</MudSelectItem>
+                        <MudSelectItem Value="@("Básico")">Básico</MudSelectItem>
+                        <MudSelectItem Value="@("Profissional")">Profissional</MudSelectItem>
+                    </MudSelect>
+
+                    <MudText Typo="Typo.h6" Class="mt-6">Dados do Administrador</MudText>
+
+                    <MudTextField T="string" 
+                                  Label="Email Corporativo" 
+                                  @bind-Value="_registerModel.AdminEmail" 
+                                  Required="true" 
+                                  RequiredError="Email é obrigatório."
+                                  InputType="InputType.Email"
+                                  Variant="Variant.Outlined" 
+                                  Class="mb-3"/>
+
+                    <MudTextField T="string" 
+                                  Label="Telefone (WhatsApp)" 
+                                  @bind-Value="_registerModel.AdminPhone" 
+                                  Required="true" 
+                                  RequiredError="Telefone é obrigatório."
+                                  HelperText="Formato: +5511999999999"
+                                  Variant="Variant.Outlined" 
+                                  Class="mb-3"/>
+
+                    <MudTextField T="string" 
+                                  Label="Senha" 
+                                  @bind-Value="_registerModel.Password" 
+                                  InputType="@_passwordInputType"
+                                  Adornment="Adornment.End"
+                                  AdornmentIcon="@_passwordInputIcon"
+                                  OnAdornmentClick="TogglePasswordVisibility"
+                                  Required="true" 
+                                  RequiredError="Senha é obrigatória."
+                                  Variant="Variant.Outlined"/>
+                                  
+                </MudCardContent>
+            
+                <MudCardActions Class="d-flex flex-column gap-2 align-center pa-4">
+                    <!-- Botão dentro do Form com ButtonType Submit -->
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Primary"
+                               Size="Size.Large"
+                               FullWidth="true"
+                               OnClick="ExecuteRegister"
+                               Disabled="@(_loading)">
+                        @if (_loading)
+                        {
+                            <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true"/>
+                            <MudText Class="ms-2">Processando...</MudText>
+                        }
+                        else
+                        {
+                            <MudText>Criar Conta</MudText>
+                        }
+                    </MudButton>
+                    
+                    <MudText Typo="Typo.body2" Class="mt-2">
+                        Já tem uma conta? <MudLink Href="/login">Faça Login</MudLink>
+                    </MudText>
+                </MudCardActions>
+            </MudForm>
+        </MudCard>
+    </MudItem>
+</MudGrid>
+
+@code {
+    private RegisterDto _registerModel = new();
+    private MudForm _form;
+    private bool _success;
+    private bool _loading = false;
+    
+    private bool _showPassword;
+    private InputType _passwordInputType = InputType.Password;
+    private string _passwordInputIcon = Icons.Material.Filled.VisibilityOff;
+
+    void TogglePasswordVisibility()
+    {
+        if (_showPassword)
+        {
+            _showPassword = false;
+            _passwordInputIcon = Icons.Material.Filled.VisibilityOff;
+            _passwordInputType = InputType.Password;
+        }
+        else
+        {
+            _showPassword = true;
+            _passwordInputIcon = Icons.Material.Filled.Visibility;
+            _passwordInputType = InputType.Text;
+        }
+    }
+
+    private async Task ExecuteRegister()
+    {
+        // Validação extra manual (redundante com OnValidSubmit mas seguro)
+        await _form.Validate();
+        if (!_form.IsValid) return;
+
+        _loading = true;
+
+        try
+        {
+            // Nota: Certifique-se que a URL da API está correta (https://localhost:7192)
+            var response = await Http.PostAsJsonAsync("https://localhost:7192/api/auth/register", _registerModel);
+
+            if (response.IsSuccessStatusCode)
+            {
+                Snackbar.Add("Conta criada com sucesso! Faça login para continuar.", Severity.Success);
+                await Task.Delay(1500);
+                Nav.NavigateTo("/login");
+            }
+            else
+            {
+                var errorMsg = await response.Content.ReadAsStringAsync();
+                Snackbar.Add($"Erro: {errorMsg}", Severity.Error);
+            }
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Erro de conexão: {ex.Message}", Severity.Error);
+        }
+        finally
+        {
+            _loading = false;
+        }
+    }
+}

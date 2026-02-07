@@ -1,0 +1,33 @@
+﻿<MudExpansionPanels>
+    <MudExpansionPanel Text="Estado da Memória (MCP)">
+        <MudSimpleTable>
+            <thead>
+            <tr>
+                <th>Variável</th>
+                <th>Valor</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach(var state in ContextData)
+            {
+                <tr>
+                    <td>@state.Key</td>
+                    <td>@state.Value</td>
+                </tr>
+            }
+            </tbody>
+        </MudSimpleTable>
+
+        <!-- CORREÇÃO: Adicionado T="string" -->
+        <MudChip T="string" Color="Color.Info">
+            Token Window: @TokenUsage / @TokenLimit
+        </MudChip>
+
+    </MudExpansionPanel>
+</MudExpansionPanels>
+
+@code {
+    [Parameter] public Dictionary<string, string> ContextData { get; set; } = new();
+    [Parameter] public int TokenUsage { get; set; }
+    [Parameter] public int TokenLimit { get; set; }
+}

@@ -1,0 +1,20 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using MudBlazor
+@inherits LayoutComponentBase
+@inject AuthenticationStateProvider AuthStateProvider
+
+@* Provedores globais do MudBlazor - Devem estar aqui *@
+<MudThemeProvider Theme="_currentTheme" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+<MudPopoverProvider />
+
+<MudLayout>
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    private MudTheme _currentTheme = new MudTheme();
+}

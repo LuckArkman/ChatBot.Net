@@ -1,0 +1,20 @@
+﻿@inherits LayoutComponentBase
+
+<MudLayout>
+    <MudAppBar Elevation="1" Color="Color.Primary">
+        <MudText Typo="Typo.h6">OmniChat Workspace</MudText>
+    </MudAppBar>
+    <MudDrawer Open="true" ClipMode="DrawerClipMode.Always">
+        <MudNavMenu>
+            <MudNavLink Href="/dashboard">Dashboard</MudNavLink>
+            <MudNavLink Href="/live-chat">Chat ao Vivo</MudNavLink>
+            <MudNavLink Href="/team">Equipe</MudNavLink>
+            <MudNavLink Href="/connections">Conexões</MudNavLink>
+        </MudNavMenu>
+    </MudDrawer>
+    <MudMainContent>
+        <MudContainer MaxWidth="MaxWidth.Large" Class="my-4 pt-4">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>

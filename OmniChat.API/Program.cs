@@ -1,66 +1,82 @@
-using Microsoft.EntityFrameworkCore;
+using MongoDB.Bson;
+using OmniChat.Infrastructure.Security;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
+using OmniChat.Application.Hubs;
 using OmniChat.Application.Services;
-using OmniChat.Domain.Interfaces;
-using OmniChat.Infrastructure.AI;
-using OmniChat.Infrastructure.Channels;
+using OmniChat.Application.Validators;
+using OmniChat.Domain.Entities;
 using OmniChat.Infrastructure.Persistence;
-using OmniChat.Infrastructure.Resilience;
+using OmniChat.Infrastructure.Repositories;
+using FluentValidation.AspNetCore;
+using FluentValidation; 
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 1. Configuração de Banco de Dados (EF Core + SQL Server/Postgres)
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+// Configuração do FluentValidation (Agora funcionará com as versões 11.x)
+builder.Services.AddFluentValidationAutoValidation()
+    .AddFluentValidationClientsideAdapters();
+builder.Services.AddValidatorsFromAssemblyContaining<RegisterDtoValidator>();
 
-// 2. Configuração de Resiliência e HttpClients
-builder.Services.AddHttpClient<OpenAIService>()
-    .AddPolicyHandler(ResiliencePolicies.GetRetryPolicy());
+BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
 
-builder.Services.AddHttpClient<GeminiService>()
-    .AddPolicyHandler(ResiliencePolicies.GetRetryPolicy());
-
-builder.Services.AddHttpClient<WhatsAppChannel>()
-    .AddPolicyHandler(ResiliencePolicies.GetRetryPolicy());
-
-builder.Services.AddHttpClient<TelegramChannel>()
-    .AddPolicyHandler(ResiliencePolicies.GetRetryPolicy());
-
-// 3. Injeção de Dependência dos Serviços Core
-builder.Services.AddScoped<IMcpRepository, McpRepository>();
-builder.Services.AddScoped<McpService>();
-builder.Services.AddScoped<IPlanEnforcementService, PlanEnforcementService>();
-builder.Services.AddScoped<SecureChatOrchestrator>();
-
-// 4. Factory e Estratégias
-builder.Services.AddScoped<IAIFactory, AiFactory>();
-
-// Registro dos Canais como uma coleção para o Orquestrador escolher ou usar todos
-builder.Services.AddScoped<IMessagingChannel, WhatsAppChannel>();
-builder.Services.AddScoped<IMessagingChannel, TelegramChannel>();
-
-builder.Services.AddControllers();
+// --- Configuração dos Serviços ---
+builder.Services.AddSingleton<MongoDbContext>();
+builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<PlanRepository>();
+builder.Services.AddScoped<PlanEnforcementService>();
+builder.Services.AddScoped<RegisterOrganizationUseCase>();
+builder.Services.AddScoped<AuthService>();
+builder.Services.AddSignalR();
+builder.Services.AddControllers(); 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// --- Pipeline de Execução ---
+app.MapHub<ChatHub>("/chathub");
+
 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+// -----------------------
 
-app.UseHttpsRedirection();
-app.UseAuthorization();
+app.MapHub<ChatHub>("/chathub");
 app.MapControllers();
 
-// Migração automática ao iniciar (Cuidado em produção, usar apenas se tiver controle)
+// --- Seed Inicial ---
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    db.Database.Migrate();
+    var planRepo = scope.ServiceProvider.GetRequiredService<PlanRepository>();
+    var existingPlans = await planRepo.GetAllActivePlansAsync();
+    
+    if (!existingPlans.Any())
+    {
+        // 2. Correção da estrutura do Plano para bater com a Entidade atualizada
+        var freePlan = new Plan 
+        { 
+            Id = Guid.NewGuid(), 
+            Name = "Free Tier",
+            Price = 0,
+            MaxUsers = 1,
+            TrialDays = 0,
+            IsActive = true,
+            IsCustom = false,
+            // As propriedades antigas (AllowGpt4, MonthlyMessageLimit) 
+            // foram movidas para dentro de 'Features' na nossa refatoração anterior
+            Features = new PlanFeatures 
+            {
+                HasAiChatbot = false,
+                HasInternalChat = true,
+                CanSendCampaigns = false,
+                MonthlyCampaignMessagesLimit = 0
+            }
+        };
+        await planRepo.CreatePlanAsync(freePlan);
+    }
 }
 
 app.Run();

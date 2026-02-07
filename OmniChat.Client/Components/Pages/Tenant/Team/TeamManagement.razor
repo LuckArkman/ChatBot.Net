@@ -1,0 +1,104 @@
+﻿@page "/team"
+@using Microsoft.AspNetCore.Authorization
+@using MudBlazor
+@using OmniChat.Shared.DTOs
+@attribute [Authorize(Roles = "OrganizationAdmin")]
+@inject HttpClient Http
+@inject ISnackbar Snackbar
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-4">
+    <div class="d-flex justify-space-between align-center mb-4">
+        <MudText Typo="Typo.h5">Gerenciamento de Equipe</MudText>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.PersonAdd" OnClick="OpenInviteDialog">
+            Novo Membro
+        </MudButton>
+    </div>
+
+    <!-- CORREÇÃO 1: Adicionado T="TeamMemberDto" na Tabela -->
+    <MudTable T="TeamMemberDto" Items="@_users" Hover="true" Loading="@_loading">
+        <HeaderContent>
+            <MudTh>Nome / Email</MudTh>
+            <MudTh>Função</MudTh>
+            <MudTh>Departamento</MudTh>
+            <MudTh>Status</MudTh>
+            <MudTh>Ações</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd>
+                <div class="d-flex align-center">
+                    <MudAvatar Color="Color.Secondary" Class="mr-3">@context.Name.Substring(0,1)</MudAvatar>
+                    <div>
+                        <MudText Typo="Typo.body1">@context.Name</MudText>
+                        <MudText Typo="Typo.caption">@context.Email</MudText>
+                    </div>
+                </div>
+            </MudTd>
+            <MudTd>@context.Role</MudTd>
+            <MudTd>
+                @foreach(var dept in context.Departments)
+                {
+                    <!-- CORREÇÃO 2: Adicionado T="string" no MudChip -->
+                    <MudChip T="string" Size="Size.Small">@dept</MudChip>
+                }
+            </MudTd>
+            <MudTd>
+                <!-- CORREÇÃO 3: Tipagem explícita na lambda ((bool s) => ...) -->
+                <MudSwitch T="bool" 
+                           Checked="@context.IsActive" 
+                           Color="Color.Success" 
+                           CheckedChanged="@((bool s) => ToggleUserStatus(context, s))" />
+            </MudTd>
+            <MudTd>
+                <MudIconButton Icon="@Icons.Material.Filled.Edit" Size="Size.Small" />
+                <MudIconButton Icon="@Icons.Material.Filled.Delete" Size="Size.Small" Color="Color.Error" />
+            </MudTd>
+        </RowTemplate>
+    </MudTable>
+</MudContainer>
+
+@code {
+    private List<TeamMemberDto> _users = new();
+    private bool _loading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Simulação de carga ou chamada real
+        // _users = await Http.GetFromJsonAsync<List<TeamMemberDto>>("api/tenant/users");
+        
+        // Mock para teste visual (opcional)
+        if (_users.Count == 0) 
+        {
+             _users.Add(new TeamMemberDto { Id = Guid.NewGuid(), Name = "Teste", Email = "teste@omni.chat", Role = "Agent", IsActive = true, Departments = new List<string> { "Suporte" } });
+        }
+        
+        _loading = false;
+    }
+
+    private async Task ToggleUserStatus(TeamMemberDto user, bool status)
+    {
+        // Atualiza a UI imediatamente para feedback rápido
+        user.IsActive = status;
+
+        try 
+        {
+            var response = await Http.PutAsJsonAsync($"api/tenant/users/{user.Id}/status", new { IsActive = status });
+            if (response.IsSuccessStatusCode)
+            {
+                Snackbar.Add("Status atualizado com sucesso", Severity.Success);
+            }
+            else 
+            {
+                // Reverte se falhar
+                user.IsActive = !status;
+                Snackbar.Add("Erro ao atualizar status", Severity.Error);
+            }
+        }
+        catch
+        {
+            user.IsActive = !status;
+            Snackbar.Add("Erro de conexão", Severity.Error);
+        }
+    }
+    
+    private void OpenInviteDialog() { /* Lógica para abrir Modal de Convite */ }
+}
