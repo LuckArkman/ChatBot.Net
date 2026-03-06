@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PNgcb7YUTWk=",
+  "dgSpecHash": "nHnzHi4VQSc=",
   "success": true,
-  "projectFilePath": "D:\\ChatBot.Net\\OmniChat.Client\\OmniChat.Client.csproj",
+  "projectFilePath": "d:\\ChatBot.Net\\OmniChat.Client\\OmniChat.Client.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\MPLopes\\.nuget\\packages\\blazored.localstorage\\4.3.0\\blazored.localstorage.4.3.0.nupkg.sha512",
     "C:\\Users\\MPLopes\\.nuget\\packages\\dnsclient\\1.6.1\\dnsclient.1.6.1.nupkg.sha512",
@@ -220,8 +220,10 @@
     {
       "code": "NU1902",
       "level": "Warning",
-      "warningLevel": 1,
       "message": "Package 'System.IdentityModel.Tokens.Jwt' 6.24.0 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-59j7-ghrg-fj52",
+      "projectPath": "d:\\ChatBot.Net\\OmniChat.Client\\OmniChat.Client.csproj",
+      "warningLevel": 1,
+      "filePath": "d:\\ChatBot.Net\\OmniChat.Client\\OmniChat.Client.csproj",
       "libraryId": "System.IdentityModel.Tokens.Jwt",
       "targetGraphs": [
         "net8.0"

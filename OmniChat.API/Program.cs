@@ -13,7 +13,6 @@ using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuração do FluentValidation (Agora funcionará com as versões 11.x)
 builder.Services.AddFluentValidationAutoValidation()
     .AddFluentValidationClientsideAdapters();
 builder.Services.AddValidatorsFromAssemblyContaining<RegisterDtoValidator>();

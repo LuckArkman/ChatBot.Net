@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "lyvjwdnhEqY=",
+  "dgSpecHash": "9wuN5WvoI3M=",
   "success": true,
-  "projectFilePath": "D:\\ChatBot.Net\\OmniChat.WebUI\\OmniChat.WebUI.csproj",
+  "projectFilePath": "d:\\ChatBot.Net\\OmniChat.WebUI\\OmniChat.WebUI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\MPLopes\\.nuget\\packages\\blazored.localstorage\\4.3.0\\blazored.localstorage.4.3.0.nupkg.sha512",
     "C:\\Users\\MPLopes\\.nuget\\packages\\dnsclient\\1.6.1\\dnsclient.1.6.1.nupkg.sha512",

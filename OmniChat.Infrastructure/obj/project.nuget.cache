@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "IJ8I04VVrMs=",
+  "dgSpecHash": "QJm65MkpJf4=",
   "success": true,
-  "projectFilePath": "D:\\ChatBot.Net\\OmniChat.Infrastructure\\OmniChat.Infrastructure.csproj",
+  "projectFilePath": "d:\\ChatBot.Net\\OmniChat.Infrastructure\\OmniChat.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\MPLopes\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\MPLopes\\.nuget\\packages\\blazored.localstorage\\4.3.0\\blazored.localstorage.4.3.0.nupkg.sha512",
@@ -108,9 +108,9 @@
       "code": "NU1903",
       "level": "Warning",
       "message": "Package 'Npgsql' 8.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-x9vc-6hfv-hg8c",
-      "projectPath": "D:\\ChatBot.Net\\OmniChat.Infrastructure\\OmniChat.Infrastructure.csproj",
+      "projectPath": "d:\\ChatBot.Net\\OmniChat.Infrastructure\\OmniChat.Infrastructure.csproj",
       "warningLevel": 1,
-      "filePath": "D:\\ChatBot.Net\\OmniChat.Infrastructure\\OmniChat.Infrastructure.csproj",
+      "filePath": "d:\\ChatBot.Net\\OmniChat.Infrastructure\\OmniChat.Infrastructure.csproj",
       "libraryId": "Npgsql",
       "targetGraphs": [
         "net8.0"

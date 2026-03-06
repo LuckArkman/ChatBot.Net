@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\ChatBot.Net\\OmniChat.Application\\OmniChat.Application.csproj": {}
+    "d:\\ChatBot.Net\\OmniChat.Application\\OmniChat.Application.csproj": {}
   },
   "projects": {
-    "D:\\ChatBot.Net\\OmniChat.Application\\OmniChat.Application.csproj": {
+    "d:\\ChatBot.Net\\OmniChat.Application\\OmniChat.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ChatBot.Net\\OmniChat.Application\\OmniChat.Application.csproj",
+        "projectUniqueName": "d:\\ChatBot.Net\\OmniChat.Application\\OmniChat.Application.csproj",
         "projectName": "OmniChat.Application",
-        "projectPath": "D:\\ChatBot.Net\\OmniChat.Application\\OmniChat.Application.csproj",
+        "projectPath": "d:\\ChatBot.Net\\OmniChat.Application\\OmniChat.Application.csproj",
         "packagesPath": "C:\\Users\\MPLopes\\.nuget\\packages\\",
-        "outputPath": "D:\\ChatBot.Net\\OmniChat.Application\\obj\\",
+        "outputPath": "d:\\ChatBot.Net\\OmniChat.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -33,14 +33,14 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\ChatBot.Net\\OmniChat.Domain\\OmniChat.Domain.csproj": {
-                "projectPath": "D:\\ChatBot.Net\\OmniChat.Domain\\OmniChat.Domain.csproj"
+              "d:\\ChatBot.Net\\OmniChat.Domain\\OmniChat.Domain.csproj": {
+                "projectPath": "d:\\ChatBot.Net\\OmniChat.Domain\\OmniChat.Domain.csproj"
               },
-              "D:\\ChatBot.Net\\OmniChat.Infrastructure\\OmniChat.Infrastructure.csproj": {
-                "projectPath": "D:\\ChatBot.Net\\OmniChat.Infrastructure\\OmniChat.Infrastructure.csproj"
+              "d:\\ChatBot.Net\\OmniChat.Infrastructure\\OmniChat.Infrastructure.csproj": {
+                "projectPath": "d:\\ChatBot.Net\\OmniChat.Infrastructure\\OmniChat.Infrastructure.csproj"
               },
-              "D:\\ChatBot.Net\\OmniChat.Shared\\OmniChat.Shared.csproj": {
-                "projectPath": "D:\\ChatBot.Net\\OmniChat.Shared\\OmniChat.Shared.csproj"
+              "d:\\ChatBot.Net\\OmniChat.Shared\\OmniChat.Shared.csproj": {
+                "projectPath": "d:\\ChatBot.Net\\OmniChat.Shared\\OmniChat.Shared.csproj"
               }
             }
           }
@@ -126,14 +126,14 @@
         }
       }
     },
-    "D:\\ChatBot.Net\\OmniChat.Domain\\OmniChat.Domain.csproj": {
+    "d:\\ChatBot.Net\\OmniChat.Domain\\OmniChat.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ChatBot.Net\\OmniChat.Domain\\OmniChat.Domain.csproj",
+        "projectUniqueName": "d:\\ChatBot.Net\\OmniChat.Domain\\OmniChat.Domain.csproj",
         "projectName": "OmniChat.Domain",
-        "projectPath": "D:\\ChatBot.Net\\OmniChat.Domain\\OmniChat.Domain.csproj",
+        "projectPath": "d:\\ChatBot.Net\\OmniChat.Domain\\OmniChat.Domain.csproj",
         "packagesPath": "C:\\Users\\MPLopes\\.nuget\\packages\\",
-        "outputPath": "D:\\ChatBot.Net\\OmniChat.Domain\\obj\\",
+        "outputPath": "d:\\ChatBot.Net\\OmniChat.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -234,14 +234,14 @@
         }
       }
     },
-    "D:\\ChatBot.Net\\OmniChat.Infrastructure\\OmniChat.Infrastructure.csproj": {
+    "d:\\ChatBot.Net\\OmniChat.Infrastructure\\OmniChat.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ChatBot.Net\\OmniChat.Infrastructure\\OmniChat.Infrastructure.csproj",
+        "projectUniqueName": "d:\\ChatBot.Net\\OmniChat.Infrastructure\\OmniChat.Infrastructure.csproj",
         "projectName": "OmniChat.Infrastructure",
-        "projectPath": "D:\\ChatBot.Net\\OmniChat.Infrastructure\\OmniChat.Infrastructure.csproj",
+        "projectPath": "d:\\ChatBot.Net\\OmniChat.Infrastructure\\OmniChat.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\MPLopes\\.nuget\\packages\\",
-        "outputPath": "D:\\ChatBot.Net\\OmniChat.Infrastructure\\obj\\",
+        "outputPath": "d:\\ChatBot.Net\\OmniChat.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -263,8 +263,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\ChatBot.Net\\OmniChat.Domain\\OmniChat.Domain.csproj": {
-                "projectPath": "D:\\ChatBot.Net\\OmniChat.Domain\\OmniChat.Domain.csproj"
+              "d:\\ChatBot.Net\\OmniChat.Domain\\OmniChat.Domain.csproj": {
+                "projectPath": "d:\\ChatBot.Net\\OmniChat.Domain\\OmniChat.Domain.csproj"
               }
             }
           }
@@ -362,14 +362,14 @@
         }
       }
     },
-    "D:\\ChatBot.Net\\OmniChat.Shared\\OmniChat.Shared.csproj": {
+    "d:\\ChatBot.Net\\OmniChat.Shared\\OmniChat.Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ChatBot.Net\\OmniChat.Shared\\OmniChat.Shared.csproj",
+        "projectUniqueName": "d:\\ChatBot.Net\\OmniChat.Shared\\OmniChat.Shared.csproj",
         "projectName": "OmniChat.Shared",
-        "projectPath": "D:\\ChatBot.Net\\OmniChat.Shared\\OmniChat.Shared.csproj",
+        "projectPath": "d:\\ChatBot.Net\\OmniChat.Shared\\OmniChat.Shared.csproj",
         "packagesPath": "C:\\Users\\MPLopes\\.nuget\\packages\\",
-        "outputPath": "D:\\ChatBot.Net\\OmniChat.Shared\\obj\\",
+        "outputPath": "d:\\ChatBot.Net\\OmniChat.Shared\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
